@@ -19,6 +19,8 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
+  //Bug_Tracker
+
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
@@ -27,9 +29,12 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Problem ##
   > Describe the problem your product solves.
+  // store the error meet in your project ."to understand more"
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  //each project has a list of errors encountered in the development process and
+  // the solutions used to correct the problem
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
