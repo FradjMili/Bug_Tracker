@@ -1,21 +1,25 @@
 import React from 'react';
-import"./Project.css"
-import { ErrorList } from '../ErrorList/Error.jsx';
-import { useHistory } from "react-router-dom";
+import"./Project.css";
+
+
+
 export  const Project =(props)=>{
-    const history = useHistory();
-    const navigateTo = () => history.push('./ErrorList/ErrorList.jsx')
+   
+    
     return(
-    <div className='card-container' onClick={navigateTo} >
+        
+    <div className='card-container' >
+        
         <h2 > {props.project.name}</h2>
         <p>{props.project.description}</p>
         <div> 
         <div className='footer'></div>
         <button id='cancelBtn' onClick={()=>props.handleDelete(props.project._id)}>Remove</button>
-        <button>Update</button>
+        <button  onClick={()=>props.handelUpdate(props.project._id)}>Update</button>
         </div>
        
-    </div>)
+    </div>
+    )
     
 
 } 

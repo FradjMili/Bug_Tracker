@@ -72,17 +72,21 @@ var deleteProject = function (req,res){
 
    }   
 
-// var updateProject =function(req,res){
-//   let {id}=req.params;
-//   let { name, description } = req.body;
-//   Project.modifItem({_id:id ,name, description })
-//   .then((Project) => {
-//     res.status(200).send(Project);
-//     })
-//  .catch((error) => {
-// res.status(500).send(error);
-// });
-   
-//}     
+var updateProject =function(req,res){
+  let {id}=req.params;
+  let { name, description } = req.body;
 
-module.exports = { selectAll ,addProject,deleteProject};
+  Project.updateOne({ _id: id }, {
+    name: name,
+   description: description
+ })
+ .then((Project) => {
+    res.status(200).send(Project);
+    })
+ .catch((error) => {
+res.status(500).send(error);
+});
+   
+}     
+
+module.exports = { selectAll ,addProject,deleteProject,updateProject};

@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import "./index.css";
+
 import { ProjectList } from './components/ProjectList/ProjectList.jsx';
 import { Search } from './components/Search/Search.jsx';
-import { Popup } from './components/Popup/Popup.jsx';
+
 import $ from 'jquery';
 
 
@@ -15,7 +16,10 @@ class App extends React.Component {
      
       project:[],
       searchfield:'',
-      modalOpen:false
+      modalOpen:false,
+      name:"",
+      description:"",
+      id:""
       
     }
     this.getProject=this.getProject.bind(this)
@@ -23,6 +27,7 @@ class App extends React.Component {
     this.onChangeDesc=this.onChangeDesc.bind(this)
     this.onChangeName=this.onChangeName.bind(this)
     this.handelClick=this.handelClick.bind(this)
+    this.handelUpdate=this.handelUpdate.bind(this)
   }
 
   getProject(){
@@ -53,6 +58,18 @@ class App extends React.Component {
       },
     });
   };
+
+  handelUpdate(id){
+    let projectu=this.state.project.filter(project=>
+      project._id===id)
+      this.setState({
+        description: projectu[0].description,
+        name:projectu[0].name,
+        id:projectu[0]._id
+    }
+    )
+    this.setOpenModel(true)
+  }
   componentDidMount(){
     // fetch('https://jsonplaceholder.typicode.com/users')
     // .then(Response=>Response.json())
@@ -80,9 +97,12 @@ class App extends React.Component {
 }
 handelClick(){
     
+if(this.state.id===''){
+
   $.post('/api/project/postProject',{name:this.state.name,description:this.state.description})
   .then(()=>{
       this.setState({
+          
           name:'',
           description:''
 
@@ -95,9 +115,29 @@ handelClick(){
     this.setOpenModel(false)
   })
   
+}
+else{
+  $.post('/api/project/updateProject/'+this.state.id,{name:this.state.name,description:this.state.description})
+  .then(()=>{
+      this.setState({
+          id:'',
+          name:'',
+          description:''
+
+      })
+      this.getProject()
+     
+  
+  })
+  .then(()=>{
+    this.setOpenModel(false)
+  })
+  
+}
   
 
 }
+
   render () {
     const {project,searchfield}=this.state;
     const filterProject=project.filter(project=>
@@ -115,9 +155,10 @@ handelClick(){
         <button className='openModelbtn' onClick={()=>this.setOpenModel(true)}  >ADD Project</button>
           
         
-        <div className='list'> <ProjectList project={filterProject} handleDelete={this.handleDelete}/></div>
-         {this.state.modalOpen && <div className='modalBackground'>
-          <div className='modalContainer'>
+        <div className='list'> <ProjectList project={filterProject} handleDelete={this.handleDelete} handelUpdate={this.handelUpdate}/></div>
+         {this.state.modalOpen && 
+         <div className='modalBackground'>
+        <div className='modalContainer'>
               <div className='titleCloseBtn'>
                   <button onClick={()=>{
                       this.setOpenModel(false)
@@ -125,12 +166,22 @@ handelClick(){
                       x
                   </button>
               </div>
-              <div className='title'>
-                  <h1>Add New Project</h1>
+              <div className='tiitre'>
+                  <h1 >Add New Project</h1>
               </div>
               <div className='body'>
-                  <input placeholder='Name Of Project' value={this.state.name} onChange={this.onChangeName}></input>
-                  <input placeholder='description Of Project'value={this.state.description} onChange={this.onChangeDesc}></input>
+            <form>
+                          <label>
+                            Nom :
+                            <input type="text" placeholder='name' value={this.state.name} onChange={this.onChangeName} />
+                          </label>
+                          <label>
+                            Description :
+                            <input type="text" placeholder='description' value={this.state.description} onChange={this.onChangeDesc}/>
+                          </label>
+              </form>
+                  {/* <input placeholder='Name Of Project' value={this.state.name} onChange={this.onChangeName}></input>
+                  <input placeholder='description Of Project'value={this.state.description} onChange={this.onChangeDesc}></input> */}
               </div>
               <div className='footer'>
                   <button id='cancelBtn' onClick={()=>{
@@ -139,9 +190,9 @@ handelClick(){
                   <button onClick={this.handelClick}>ADD</button>
               </div>
           </div>
-      </div>} 
+      </div>}
+      
       </div>
-     
     
 
     </div>)
