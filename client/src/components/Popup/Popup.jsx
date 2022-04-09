@@ -1,25 +1,17 @@
 
-import React, { Component } from 'react'
-import './Model.css'
+import React from 'react'
+import './Popup.css'
 
-export default class Model extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            
-          
-        }
-        
-      }
-
-
-  render() {
+export const  Popup = ({setOpenModel}) => {
+    
     return (
         
       <div className='modalBackground'>
           <div className='modalContainer'>
               <div className='titleCloseBtn'>
-                  <button>
+                  <button onClick={()=>{
+                      setOpenModel(false)
+                  }}>
                       x
                   </button>
               </div>
@@ -30,11 +22,13 @@ export default class Model extends Component {
                   <p>describe our project</p>
               </div>
               <div className='footer'>
-                  <button id='cancelBtn' >Cancel</button>
+                  <button id='cancelBtn' onClick={()=>{
+                      setOpenModel(false)
+                  }} >Cancel</button>
                   <button >ADD</button>
               </div>
           </div>
       </div>
     )
-  }
+  
 }

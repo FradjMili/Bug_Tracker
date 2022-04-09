@@ -7,7 +7,7 @@ export const ProjectList =props =>{
 return (
     <div className='ProjectList'>
          {props.project.map(project=>(
-        <Project  key={project.id} project={project} />
+        <Project  key={project.id} project={project} handleDelete={props.handleDelete} />
       ))}</div>
 )
 }

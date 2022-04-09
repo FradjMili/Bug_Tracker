@@ -5,10 +5,10 @@ export  const Project =(props)=>{
     return(
     <div className='card-container'>
         <h2 > {props.project.name}</h2>
-        <p>{props.project.username}</p>
+        <p>{props.project.description}</p>
         <div> 
         <div className='footer'></div>
-        <button id='cancelBtn'>Remove</button>
+        <button id='cancelBtn' onClick={()=>props.handleDelete(props.project._id)}>Remove</button>
         <button>Update</button>
         </div>
        
