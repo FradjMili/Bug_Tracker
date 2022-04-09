@@ -2,15 +2,15 @@
 import React from 'react'
 import './Popup.css'
 
-export const  Popup = ({setOpenModel}) => {
-    
+export const  Popup = (props) => {
+    console.log(props);
     return (
         
       <div className='modalBackground'>
           <div className='modalContainer'>
               <div className='titleCloseBtn'>
                   <button onClick={()=>{
-                      setOpenModel(false)
+                      props.setOpenModel(false)
                   }}>
                       x
                   </button>
@@ -23,7 +23,7 @@ export const  Popup = ({setOpenModel}) => {
               </div>
               <div className='footer'>
                   <button id='cancelBtn' onClick={()=>{
-                      setOpenModel(false)
+                      props.setOpenModel(false)
                   }} >Cancel</button>
                   <button >ADD</button>
               </div>
